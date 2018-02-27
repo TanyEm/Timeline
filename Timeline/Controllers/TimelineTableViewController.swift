@@ -7,11 +7,34 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class TimelineTableViewController: UITableViewController {
 
+    var timelineData = [TimelineData]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let apiURL = URL(string: "https://mastodon.social/api/v1/timelines/public")
+        Alamofire.request(apiURL!).responseJSON { (response) in
+            let result = response.data
+            do{
+//                self.timelineData = try JSONDecoder().decode([TimelineData].self, from: result!)
+//                for timeline in self.timelineData{
+//
+//
+//                }
+                let json = JSON(result!)
+                //print(json)
+                TimelineData.currentTimeline.setStatus(json)
+            } catch {
+                print(error)
+            }
+        }
+        
+        print(timelineData)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -38,7 +61,9 @@ class TimelineTableViewController: UITableViewController {
 
         // Configure the cell...
 
+
         return cell
+
     }
 
     // MARK: - Navigation
