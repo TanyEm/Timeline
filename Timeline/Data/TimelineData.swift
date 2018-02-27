@@ -12,35 +12,23 @@ import Alamofire
 
 class TimelineData {
 
-//    let apiURL = URL(string: "https://mastodon.social/api/v1/timelines/public")
-
     var display_name: String?
     var username: String?
     var content: String?
     var avatar: String?
     var created_at: String?
 
-//    guard let url = URL(string: apiURL) else { return }
-//    let json = JSON(data: url)
-    static let currentTimeline = TimelineData()
+    func setFields(_ item: JSON) -> TimelineData {
+        self.display_name = item["account"]["display_name"].string
+        self.username = String("@\(String(describing: item["account"]["username"].string!))")
+        self.content = item["content"].string
+        self.created_at = item["created_at"].string
 
-    func setStatus(_ json: JSON) {
-        self.display_name = json["account"]["display_name"].string
-        self.username = json["account"]["username"].string
-        self.content = json["content"].string
-        self.created_at = json["created_at"].string
-
-        let image = json["account"]["avatar"].dictionary
+        let image = item["account"]["avatar_static"].dictionary
         let imageData = image?["data"]?.dictionary
         self.avatar = imageData?["url"]?.string
+        return self
     }
 
-//    init(display_name: String?, username: String?, content: String?, avatar: String?, created_at: String?){
-//        self.display_name = display_name
-//        self.username = username
-//        self.avatar = avatar
-//        self.created_at = created_at
-//        self.content = content
-//    }
-
 }
+

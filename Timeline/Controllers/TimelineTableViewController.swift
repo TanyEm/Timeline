@@ -20,47 +20,52 @@ class TimelineTableViewController: UITableViewController {
         let apiURL = URL(string: "https://mastodon.social/api/v1/timelines/public")
         Alamofire.request(apiURL!).responseJSON { (response) in
             let result = response.data
-            do{
-//                self.timelineData = try JSONDecoder().decode([TimelineData].self, from: result!)
-//                for timeline in self.timelineData{
-//
-//
-//                }
-                let json = JSON(result!)
-                //print(json)
-                TimelineData.currentTimeline.setStatus(json)
-            } catch {
-                print(error)
+            let json = JSON(result!)
+            for item in json.arrayValue {
+                self.timelineData.append(TimelineData().setFields(item))
             }
+            print(self.timelineData)
+            self.tableView.reloadData()
         }
-        
-        print(timelineData)
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
 
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
+//
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 0
+//    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return timelineData.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StatusCell", for: indexPath) as! UserStatusTableViewCell
 
         // Configure the cell...
+        //the artist object
+        let timeline: TimelineData
 
+        //getting the artist of selected position
+        timeline = timelineData[indexPath.row]
+
+        //adding values to labels
+        cell.usernameLabel.text = timeline.display_name
+        cell.nicknameLabel.text = timeline.username
+        cell.contentLabel.text = timeline.content
+        cell.timeLabel.text = timeline.created_at
+
+        if timeline.avatar != nil {
+            cell.avatarImg.image = try! UIImage(data: Data(contentsOf: URL(string: timeline.avatar!)!))
+            cell.avatarImg.layer.cornerRadius = 70 / 2
+            cell.avatarImg.layer.borderWidth = 1.0
+            cell.avatarImg.layer.borderColor = UIColor.white.cgColor
+            cell.avatarImg.clipsToBounds = true
+        }
 
         return cell
 
