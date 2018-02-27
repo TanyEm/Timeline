@@ -8,11 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		732DFE9320447DE800A5B600 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732DFE9220447DE800A5B600 /* AppDelegate.swift */; };
-		732DFE9520447DE800A5B600 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732DFE9420447DE800A5B600 /* ViewController.swift */; };
+		732DFE9520447DE800A5B600 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732DFE9420447DE800A5B600 /* StatusViewController.swift */; };
 		732DFE9820447DE800A5B600 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 732DFE9620447DE800A5B600 /* Main.storyboard */; };
 		732DFE9A20447DE800A5B600 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 732DFE9920447DE800A5B600 /* Assets.xcassets */; };
 		732DFE9D20447DE800A5B600 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 732DFE9B20447DE800A5B600 /* LaunchScreen.storyboard */; };
 		732DFEA820447DE900A5B600 /* TimelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732DFEA720447DE900A5B600 /* TimelineTests.swift */; };
+		732DFEB3204542F300A5B600 /* TimelineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732DFEB2204542F300A5B600 /* TimelineTableViewController.swift */; };
+		732DFEB52045437700A5B600 /* UserStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732DFEB42045437700A5B600 /* UserStatusTableViewCell.swift */; };
+		732DFEB72045457300A5B600 /* StatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732DFEB62045457300A5B600 /* StatusData.swift */; };
+		732DFEB92045459B00A5B600 /* TimelineData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732DFEB82045459B00A5B600 /* TimelineData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,7 +32,7 @@
 /* Begin PBXFileReference section */
 		732DFE8F20447DE800A5B600 /* Timeline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Timeline.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		732DFE9220447DE800A5B600 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		732DFE9420447DE800A5B600 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		732DFE9420447DE800A5B600 /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
 		732DFE9720447DE800A5B600 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		732DFE9920447DE800A5B600 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		732DFE9C20447DE800A5B600 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -36,6 +40,10 @@
 		732DFEA320447DE900A5B600 /* TimelineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimelineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		732DFEA720447DE900A5B600 /* TimelineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTests.swift; sourceTree = "<group>"; };
 		732DFEA920447DE900A5B600 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		732DFEB2204542F300A5B600 /* TimelineTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTableViewController.swift; sourceTree = "<group>"; };
+		732DFEB42045437700A5B600 /* UserStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatusTableViewCell.swift; sourceTree = "<group>"; };
+		732DFEB62045457300A5B600 /* StatusData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusData.swift; sourceTree = "<group>"; };
+		732DFEB82045459B00A5B600 /* TimelineData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				732DFE9220447DE800A5B600 /* AppDelegate.swift */,
-				732DFE9420447DE800A5B600 /* ViewController.swift */,
+				732DFEBA204545AB00A5B600 /* Data */,
+				732DFEBB204545D700A5B600 /* Controllers */,
 				732DFE9620447DE800A5B600 /* Main.storyboard */,
 				732DFE9920447DE800A5B600 /* Assets.xcassets */,
 				732DFE9B20447DE800A5B600 /* LaunchScreen.storyboard */,
@@ -94,6 +103,25 @@
 				732DFEA920447DE900A5B600 /* Info.plist */,
 			);
 			path = TimelineTests;
+			sourceTree = "<group>";
+		};
+		732DFEBA204545AB00A5B600 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				732DFEB62045457300A5B600 /* StatusData.swift */,
+				732DFEB82045459B00A5B600 /* TimelineData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		732DFEBB204545D700A5B600 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				732DFE9420447DE800A5B600 /* StatusViewController.swift */,
+				732DFEB2204542F300A5B600 /* TimelineTableViewController.swift */,
+				732DFEB42045437700A5B600 /* UserStatusTableViewCell.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,7 +227,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				732DFE9520447DE800A5B600 /* ViewController.swift in Sources */,
+				732DFEB92045459B00A5B600 /* TimelineData.swift in Sources */,
+				732DFE9520447DE800A5B600 /* StatusViewController.swift in Sources */,
+				732DFEB3204542F300A5B600 /* TimelineTableViewController.swift in Sources */,
+				732DFEB72045457300A5B600 /* StatusData.swift in Sources */,
+				732DFEB52045437700A5B600 /* UserStatusTableViewCell.swift in Sources */,
 				732DFE9320447DE800A5B600 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
