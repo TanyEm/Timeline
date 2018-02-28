@@ -23,12 +23,9 @@ class TimelineData {
         self.username = String("@\(String(describing: item["account"]["username"].string!))")
         self.content = item["content"].string
         self.created_at = item["created_at"].string
+        self.avatar = item["account"]["avatar_static"].string
 
-        let image = item["account"]["avatar_static"].dictionary
-        let imageData = image?["data"]?.dictionary
-        self.avatar = imageData?["url"]?.string
         return self
     }
-
 }
 
