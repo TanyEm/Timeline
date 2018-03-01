@@ -24,10 +24,8 @@ class TimelineTableViewController: UITableViewController {
             for item in json.arrayValue {
                 self.timelineData.append(TimelineData().setFields(item))
             }
-            print(self.timelineData)
             self.tableView.reloadData()
         }
-
     }
 
 
@@ -78,6 +76,12 @@ class TimelineTableViewController: UITableViewController {
         // Передать ID статуса
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-    }
 
+        if let indexPath = tableView.indexPathForSelectedRow {
+            let selectedStatus: TimelineData
+            selectedStatus = timelineData[indexPath.row]
+            let statusVC = segue.destination as! StatusViewController
+            statusVC.statusID = selectedStatus.id!
+        }
+    }
 }

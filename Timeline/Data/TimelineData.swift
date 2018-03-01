@@ -17,6 +17,7 @@ class TimelineData {
     var content: String?
     var avatar: String?
     var created_at: String?
+    var id: String?
 
     func setFields(_ item: JSON) -> TimelineData {
         self.display_name = item["account"]["display_name"].string
@@ -24,6 +25,7 @@ class TimelineData {
         self.content = item["content"].string
         self.created_at = item["created_at"].string
         self.avatar = item["account"]["avatar_static"].string
+        self.id = item["id"].string
 
         return self
     }
