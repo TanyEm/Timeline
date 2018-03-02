@@ -15,7 +15,6 @@
 		732DFEA820447DE900A5B600 /* TimelineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732DFEA720447DE900A5B600 /* TimelineTests.swift */; };
 		732DFEB3204542F300A5B600 /* TimelineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732DFEB2204542F300A5B600 /* TimelineTableViewController.swift */; };
 		732DFEB52045437700A5B600 /* UserStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732DFEB42045437700A5B600 /* UserStatusTableViewCell.swift */; };
-		732DFEB72045457300A5B600 /* StatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732DFEB62045457300A5B600 /* StatusData.swift */; };
 		732DFEB92045459B00A5B600 /* TimelineData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732DFEB82045459B00A5B600 /* TimelineData.swift */; };
 		8C40850F30E339B19FDA9161 /* Pods_Timeline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF278702CA0A1A5A6E15B30D /* Pods_Timeline.framework */; };
 /* End PBXBuildFile section */
@@ -45,7 +44,6 @@
 		732DFEA920447DE900A5B600 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		732DFEB2204542F300A5B600 /* TimelineTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTableViewController.swift; sourceTree = "<group>"; };
 		732DFEB42045437700A5B600 /* UserStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatusTableViewCell.swift; sourceTree = "<group>"; };
-		732DFEB62045457300A5B600 /* StatusData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusData.swift; sourceTree = "<group>"; };
 		732DFEB82045459B00A5B600 /* TimelineData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineData.swift; sourceTree = "<group>"; };
 		AF278702CA0A1A5A6E15B30D /* Pods_Timeline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Timeline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -132,7 +130,6 @@
 		732DFEBA204545AB00A5B600 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				732DFEB62045457300A5B600 /* StatusData.swift */,
 				732DFEB82045459B00A5B600 /* TimelineData.swift */,
 			);
 			path = Data;
@@ -313,7 +310,6 @@
 				732DFEB92045459B00A5B600 /* TimelineData.swift in Sources */,
 				732DFE9520447DE800A5B600 /* StatusViewController.swift in Sources */,
 				732DFEB3204542F300A5B600 /* TimelineTableViewController.swift in Sources */,
-				732DFEB72045457300A5B600 /* StatusData.swift in Sources */,
 				732DFEB52045437700A5B600 /* UserStatusTableViewCell.swift in Sources */,
 				732DFE9320447DE800A5B600 /* AppDelegate.swift in Sources */,
 			);

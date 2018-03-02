@@ -12,8 +12,9 @@ import SwiftyJSON
 
 class StatusViewController: UIViewController {
 
+    // Getted from TimelineTVC
     var statusID = ""
-    var statusData = [StatusData]()
+    var statusData = TimelineData()
 
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var nicknameLabel: UILabel!
@@ -23,27 +24,13 @@ class StatusViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
+        print(statusID)
         let apiURL = URL(string: "https://mastodon.social/api/v1/statuses/\(statusID)")
         Alamofire.request(apiURL!).responseJSON { (response) in
             let result = response.data
-            let json = JSON(result!)
-            for item in json.arrayValue {
-                self.statusData.append(StatusData().setStatus(item))
-            }
-            let status: StatusData
-            print(status.username)
-            self.contentLabel.text = status.content
-            self.nicknameLabel.text = status.username
-            self.usernameLabel.text = status.display_name
-
-            if status.avatar != nil {
-                self.avatarImg.image = try! UIImage(data: Data(contentsOf: URL(string: status.avatar!)!))
-                self.avatarImg.layer.cornerRadius = 70 / 2
-                self.avatarImg.layer.borderWidth = 1.0
-                self.avatarImg.layer.borderColor = UIColor.white.cgColor
-                self.avatarImg.clipsToBounds = true
-            }
+            let json = JSON(result!) 
+            self.statusData = TimelineData().setFields(json)
+            self.setData()
         }
     }
 
@@ -52,6 +39,20 @@ class StatusViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // Adding data in view
+    func setData() {
+        contentLabel.text = self.statusData.content
+        nicknameLabel.text = self.statusData.username
+        usernameLabel.text = self.statusData.display_name
+
+        if self.statusData.avatar != nil {
+            avatarImg.image = try! UIImage(data: Data(contentsOf: URL(string: self.statusData.avatar!)!))
+            avatarImg.layer.cornerRadius = 70 / 2
+            avatarImg.layer.borderWidth = 1.0
+            avatarImg.layer.borderColor = UIColor.white.cgColor
+            avatarImg.clipsToBounds = true
+        }
+    }
 
 }
 

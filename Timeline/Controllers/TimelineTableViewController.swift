@@ -18,6 +18,7 @@ class TimelineTableViewController: UITableViewController {
         super.viewDidLoad()
 
         let apiURL = URL(string: "https://mastodon.social/api/v1/timelines/public")
+        
         Alamofire.request(apiURL!).responseJSON { (response) in
             let result = response.data
             let json = JSON(result!)
@@ -26,15 +27,10 @@ class TimelineTableViewController: UITableViewController {
             }
             self.tableView.reloadData()
         }
+
     }
 
-
     // MARK: - Table view data source
-//
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -73,7 +69,6 @@ class TimelineTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Передать ID статуса
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
 

@@ -83,11 +83,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="StatusCell" rowHeight="95" id="dZ6-ih-nYm" customClass="UserStatusTableViewCell" customModule="Timeline" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="95"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="StatusCell" rowHeight="193" id="dZ6-ih-nYm" customClass="UserStatusTableViewCell" customModule="Timeline" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="193"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dZ6-ih-nYm" id="Ikz-0C-MJh">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="94.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="192.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aAP-K0-ifG">
@@ -136,7 +136,6 @@
                                         <constraint firstItem="aAP-K0-ifG" firstAttribute="top" secondItem="Ikz-0C-MJh" secondAttribute="top" constant="8" id="b0w-hx-Vab"/>
                                         <constraint firstItem="ru9-EK-SHi" firstAttribute="top" secondItem="Ikz-0C-MJh" secondAttribute="top" constant="8" id="bAA-ed-SGh"/>
                                         <constraint firstAttribute="bottom" secondItem="aAP-K0-ifG" secondAttribute="bottom" constant="8" id="fOq-24-IZN"/>
-                                        <constraint firstAttribute="bottom" secondItem="AQa-Du-qtL" secondAttribute="bottom" constant="8" id="kXf-4G-JFx"/>
                                         <constraint firstAttribute="bottom" secondItem="AQa-Du-qtL" secondAttribute="bottom" id="mpm-sO-3wB"/>
                                         <constraint firstItem="Rew-0y-H6n" firstAttribute="top" secondItem="Ns9-eQ-ilc" secondAttribute="bottom" constant="8" id="suB-VI-bug"/>
                                         <constraint firstAttribute="trailing" secondItem="AQa-Du-qtL" secondAttribute="trailing" constant="8" id="w06-pN-mxU"/>

@@ -8,7 +8,6 @@
 
 import Foundation
 import SwiftyJSON
-import Alamofire
 
 class TimelineData {
 
@@ -22,7 +21,13 @@ class TimelineData {
     func setFields(_ item: JSON) -> TimelineData {
         self.display_name = item["account"]["display_name"].string
         self.username = String("@\(String(describing: item["account"]["username"].string!))")
-        self.content = item["content"].string
+
+        // Parsing data for content, search and delete html tags
+        self.content = item["content"].string?.replacingOccurrences(of: "<[^>]+>",
+                                                      with: "",
+                                                      options: String.CompareOptions.regularExpression,
+                                                      range: nil)
+        
         self.created_at = item["created_at"].string
         self.avatar = item["account"]["avatar_static"].string
         self.id = item["id"].string
