@@ -17,6 +17,9 @@ class TimelineTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 150
+
         let apiURL = URL(string: "https://mastodon.social/api/v1/timelines/public")
         
         Alamofire.request(apiURL!).responseJSON { (response) in
