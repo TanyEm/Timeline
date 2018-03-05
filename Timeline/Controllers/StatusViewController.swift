@@ -38,6 +38,7 @@ class StatusViewController: UIViewController {
         Alamofire.request(apiURL!).responseJSON { (response) in
             let result = response.data
             let json = JSON(result!)
+            print(json)
             self.statusData = TimelineData().setFields(json)
             self.setData()
             self.spinner.stopAnimating()
@@ -55,29 +56,31 @@ class StatusViewController: UIViewController {
         nicknameLabel.text = self.statusData.username
         usernameLabel.text = self.statusData.display_name
 
-        if statusData.avatar != nil {
-            avatarImg.image = try! UIImage(data: Data(contentsOf: URL(string: statusData.avatar ?? "")!))
-            avatarImg.layer.cornerRadius = 70 / 2
-            avatarImg.layer.borderWidth = 1.0
-            avatarImg.layer.borderColor = UIColor.white.cgColor
-            avatarImg.clipsToBounds = true
-        }
+        if let avatarURL = statusData.avatar,
+            let url = URL(string: avatarURL),
+            let data = try? Data(contentsOf: url),
+            let image = UIImage(data: data){
+                avatarImg.image = image
+                avatarImg.layer.cornerRadius = 70 / 2
+                avatarImg.layer.borderWidth = 1.0
+                avatarImg.layer.borderColor = UIColor.white.cgColor
+                avatarImg.clipsToBounds = true
+            }
 
         if statusData.imageType == "image" || statusData.imageType == "gifv"{
-            if statusData.preview_url != nil{
-                let image = try! UIImage(data: Data(contentsOf: URL(string: statusData.preview_url ?? "")!))
-                let imageView = UIImageView(image: image!)
-                //            imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 200)
+            if let previewURL = statusData.preview_url,
+                let url = URL(string: previewURL),
+                let data = try? Data(contentsOf: url),
+                let image = UIImage(data: data) {
+
+                let imageView = UIImageView(image: image)
                 view.addSubview(imageView)
                 imageView.translatesAutoresizingMaskIntoConstraints = false
                 imageView.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
                 imageView.rightAnchor.constraint(equalTo: contentLabel.rightAnchor).isActive = true
                 imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 8).isActive = true
                 imageView.contentMode = UIViewContentMode.center
-
             }
         }
     }
-
 }
-

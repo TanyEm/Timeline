@@ -57,7 +57,6 @@ class TimelineTableViewController: UITableViewController {
             self.activityLoader.stopAnimating()
             self.tableView.reloadData()
         }
-
     }
 
     @objc func handleRefresh(refreshControl: UIRefreshControl) {
@@ -101,8 +100,11 @@ class TimelineTableViewController: UITableViewController {
         let date = timeline.created_at?.dateFormat().timeAgoDisplay()
         cell.timeLabel.text = String(describing: date ?? "")
 
-        if timeline.avatar != nil {
-            cell.avatarImg.image = try! UIImage(data: Data(contentsOf: URL(string: timeline.avatar ?? "")!))
+        if let avatarURL = timeline.avatar,
+            let url = URL(string: avatarURL),
+            let data = try? Data(contentsOf: url),
+            let image = UIImage(data: data){
+            cell.avatarImg.image = image
             cell.avatarImg.layer.cornerRadius = 70 / 2
             cell.avatarImg.layer.borderWidth = 1.0
             cell.avatarImg.layer.borderColor = UIColor.white.cgColor
@@ -110,7 +112,6 @@ class TimelineTableViewController: UITableViewController {
         }
 
         return cell
-
     }
 
     // MARK: - Navigation
