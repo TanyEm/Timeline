@@ -14,7 +14,9 @@ class StatusViewController: UIViewController {
 
     // Getted from TimelineTVC
     var statusID = ""
+    
     var statusData = TimelineData()
+    let spinner = UIActivityIndicatorView()
 
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var nicknameLabel: UILabel!
@@ -25,12 +27,20 @@ class StatusViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print(statusID)
+
+        spinner.hidesWhenStopped = true
+        spinner.center = view.center
+        spinner.activityIndicatorViewStyle = .gray
+        spinner.startAnimating()
+        view.addSubview(spinner)
+
         let apiURL = URL(string: "https://mastodon.social/api/v1/statuses/\(statusID)")
         Alamofire.request(apiURL!).responseJSON { (response) in
             let result = response.data
             let json = JSON(result!)
             self.statusData = TimelineData().setFields(json)
             self.setData()
+            self.spinner.stopAnimating()
         }
     }
 

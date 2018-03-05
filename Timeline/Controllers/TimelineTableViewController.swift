@@ -12,6 +12,7 @@ import SwiftyJSON
 
 class TimelineTableViewController: UITableViewController {
 
+    let activityLoader = UIActivityIndicatorView()
     var timelineData = [TimelineData]()
 
     override func viewDidLoad() {
@@ -19,6 +20,12 @@ class TimelineTableViewController: UITableViewController {
 
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 150
+
+        activityLoader.hidesWhenStopped = true
+        activityLoader.center = tableView.center
+        activityLoader.activityIndicatorViewStyle = .gray
+        activityLoader.startAnimating()
+        tableView.addSubview(activityLoader)
 
         let apiURL = URL(string: "https://mastodon.social/api/v1/timelines/public")
         
@@ -28,6 +35,7 @@ class TimelineTableViewController: UITableViewController {
             for item in json.arrayValue {
                 self.timelineData.append(TimelineData().setFields(item))
             }
+            self.activityLoader.stopAnimating()
             self.tableView.reloadData()
         }
 
