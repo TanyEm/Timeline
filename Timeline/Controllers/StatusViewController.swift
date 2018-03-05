@@ -28,7 +28,7 @@ class StatusViewController: UIViewController {
         let apiURL = URL(string: "https://mastodon.social/api/v1/statuses/\(statusID)")
         Alamofire.request(apiURL!).responseJSON { (response) in
             let result = response.data
-            let json = JSON(result!) 
+            let json = JSON(result!)
             self.statusData = TimelineData().setFields(json)
             self.setData()
         }
@@ -45,12 +45,27 @@ class StatusViewController: UIViewController {
         nicknameLabel.text = self.statusData.username
         usernameLabel.text = self.statusData.display_name
 
-        if self.statusData.avatar != nil {
-            avatarImg.image = try! UIImage(data: Data(contentsOf: URL(string: self.statusData.avatar!)!))
+        if statusData.avatar != nil {
+            avatarImg.image = try! UIImage(data: Data(contentsOf: URL(string: statusData.avatar ?? "")!))
             avatarImg.layer.cornerRadius = 70 / 2
             avatarImg.layer.borderWidth = 1.0
             avatarImg.layer.borderColor = UIColor.white.cgColor
             avatarImg.clipsToBounds = true
+        }
+
+        if statusData.imageType == "image" || statusData.imageType == "gifv"{
+            if statusData.preview_url != nil{
+                let image = try! UIImage(data: Data(contentsOf: URL(string: statusData.preview_url ?? "")!))
+                let imageView = UIImageView(image: image!)
+                //            imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 200)
+                view.addSubview(imageView)
+                imageView.translatesAutoresizingMaskIntoConstraints = false
+                imageView.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
+                imageView.rightAnchor.constraint(equalTo: contentLabel.rightAnchor).isActive = true
+                imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 8).isActive = true
+                imageView.contentMode = UIViewContentMode.center
+
+            }
         }
     }
 
