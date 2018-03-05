@@ -15,6 +15,22 @@ class TimelineTableViewController: UITableViewController {
     let apiURL = URL(string: "https://mastodon.social/api/v1/timelines/public")
     let activityLoader = UIActivityIndicatorView()
     var timelineData = [TimelineData]()
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        commonInit()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+
+        commonInit()
+    }
+
+    private func commonInit() {
+        // iOS not collapsing large navbar workaround
+        navigationItem.largeTitleDisplayMode = .always
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
