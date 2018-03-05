@@ -35,4 +35,3 @@ class TimelineData {
         return self
     }
 }
-

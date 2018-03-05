@@ -54,10 +54,12 @@ class TimelineTableViewController: UITableViewController {
         cell.usernameLabel.text = timeline.display_name
         cell.nicknameLabel.text = timeline.username
         cell.contentLabel.text = timeline.content
-        cell.timeLabel.text = timeline.created_at
+
+        let date = timeline.created_at?.dateFormat().timeAgoDisplay()
+        cell.timeLabel.text = String(describing: date ?? "")
 
         if timeline.avatar != nil {
-            cell.avatarImg.image = try! UIImage(data: Data(contentsOf: URL(string: timeline.avatar!)!))
+            cell.avatarImg.image = try! UIImage(data: Data(contentsOf: URL(string: timeline.avatar ?? "")!))
             cell.avatarImg.layer.cornerRadius = 70 / 2
             cell.avatarImg.layer.borderWidth = 1.0
             cell.avatarImg.layer.borderColor = UIColor.white.cgColor
@@ -81,5 +83,47 @@ class TimelineTableViewController: UITableViewController {
             let statusVC = segue.destination as! StatusViewController
             statusVC.statusID = selectedStatus.id!
         }
+    }
+}
+
+extension String {
+    /// It formating String similar to "2018-03-02T13:50:46.708Z" to Date format
+    ///
+    /// - Returns: Date
+    func dateFormat() -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
+
+        //        let dateObj = dateFormatter.date(from: timeline.created_at!)
+        return dateFormatter.date(from: self)!
+    }
+}
+
+extension Date {
+
+    /// It returne date how date ago
+    ///
+    /// - Returns: String
+    func timeAgoDisplay() -> String {
+        let secondsAgo = Int(Date().timeIntervalSince(self))
+        let minute = 60
+        let hour = 60 * minute
+        let day = 24 * hour
+        let week = 7 * day
+        if secondsAgo < minute {
+            return "\(secondsAgo) seconds ago"
+        }
+
+        else if secondsAgo < hour {
+            return "\(secondsAgo / minute) minutes ago"
+        }
+        else if secondsAgo < day {
+            return "\(secondsAgo / hour) hours ago"
+        }
+        else if secondsAgo < week {
+            return "\(secondsAgo / day) days ago"
+        }
+        return "\(secondsAgo / week) weeks ago"
     }
 }

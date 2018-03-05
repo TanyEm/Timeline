@@ -15,6 +15,7 @@ class UserStatusTableViewCell: UITableViewCell {
     @IBOutlet weak var avatarImg: UIImageView!
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
