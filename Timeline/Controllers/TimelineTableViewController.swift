@@ -12,9 +12,10 @@ import SwiftyJSON
 
 class TimelineTableViewController: UITableViewController {
 
+    let apiURL = URL(string: "https://mastodon.social/api/v1/timelines/public")
     let activityLoader = UIActivityIndicatorView()
     var timelineData = [TimelineData]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,8 +28,10 @@ class TimelineTableViewController: UITableViewController {
         activityLoader.startAnimating()
         tableView.addSubview(activityLoader)
 
-        let apiURL = URL(string: "https://mastodon.social/api/v1/timelines/public")
-        
+        self.refreshControl?.addTarget(self,
+                                       action: #selector(TimelineTableViewController.handleRefresh(refreshControl:)),
+                                       for: UIControlEvents.valueChanged)
+
         Alamofire.request(apiURL!).responseJSON { (response) in
             let result = response.data
             let json = JSON(result!)
@@ -39,6 +42,22 @@ class TimelineTableViewController: UITableViewController {
             self.tableView.reloadData()
         }
 
+    }
+
+    @objc func handleRefresh(refreshControl: UIRefreshControl) {
+        // Do some reloading of data and update the table view's data source
+        // Fetch more objects from a web service, for example...
+
+        // Simply adding an object to the data source for this example
+        Alamofire.request(apiURL!).responseJSON { (response) in
+            let result = response.data
+            let json = JSON(result!)
+            for item in json.arrayValue {
+                self.timelineData.append(TimelineData().setFields(item))
+            }
+            self.tableView.reloadData()
+        }
+        refreshControl.endRefreshing()
     }
 
     // MARK: - Table view data source
