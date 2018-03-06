@@ -46,7 +46,7 @@ class TimelineTableViewController: UITableViewController {
         self.refreshControl?.addTarget(self,
                                        action: #selector(TimelineTableViewController.handleRefresh(refreshControl:)),
                                        for: UIControlEvents.valueChanged)
-        parsJSON()
+        parseJSON()
     }
 
     @objc func handleRefresh(refreshControl: UIRefreshControl) {
@@ -54,7 +54,7 @@ class TimelineTableViewController: UITableViewController {
         // Fetch more objects from a web service, for example...
 
         // Simply adding an object to the data source for this example
-        parsJSON()
+        parseJSON()
         refreshControl.endRefreshing()
     }
 
