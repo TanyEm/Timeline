@@ -58,7 +58,7 @@ class TimelineTableViewController: UITableViewController {
         refreshControl.endRefreshing()
     }
 
-    func parsJSON() {
+    func parseJSON() {
         if let apiURL = URL(string: "https://mastodon.social/api/v1/timelines/public") {
             Alamofire.request(apiURL).responseJSON { (response) in
                 let result = response.data
