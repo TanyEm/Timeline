@@ -12,7 +12,6 @@ import SwiftyJSON
 
 class TimelineTableViewController: UITableViewController {
 
-    let apiURL = URL(string: "https://mastodon.social/api/v1/timelines/public")
     let activityLoader = UIActivityIndicatorView()
     var timelineData = [TimelineData]()
 
@@ -47,16 +46,7 @@ class TimelineTableViewController: UITableViewController {
         self.refreshControl?.addTarget(self,
                                        action: #selector(TimelineTableViewController.handleRefresh(refreshControl:)),
                                        for: UIControlEvents.valueChanged)
-
-        Alamofire.request(apiURL!).responseJSON { (response) in
-            let result = response.data
-            let json = JSON(result!)
-            for item in json.arrayValue {
-                self.timelineData.append(TimelineData().setFields(item))
-            }
-            self.activityLoader.stopAnimating()
-            self.tableView.reloadData()
-        }
+        parsJSON()
     }
 
     @objc func handleRefresh(refreshControl: UIRefreshControl) {
@@ -64,15 +54,25 @@ class TimelineTableViewController: UITableViewController {
         // Fetch more objects from a web service, for example...
 
         // Simply adding an object to the data source for this example
-        Alamofire.request(apiURL!).responseJSON { (response) in
-            let result = response.data
-            let json = JSON(result!)
-            for item in json.arrayValue {
-                self.timelineData.append(TimelineData().setFields(item))
-            }
-            self.tableView.reloadData()
-        }
+        parsJSON()
         refreshControl.endRefreshing()
+    }
+
+    func parsJSON() {
+        if let apiURL = URL(string: "https://mastodon.social/api/v1/timelines/public") {
+            Alamofire.request(apiURL).responseJSON { (response) in
+                let result = response.data
+                let json = JSON(result as Any)
+                self.timelineData = []
+                for item in json.arrayValue {
+                    self.timelineData.append(TimelineData().setFields(item))
+                }
+                if self.activityLoader.isAnimating {
+                    self.activityLoader.stopAnimating()
+                }
+                self.tableView.reloadData()
+            }
+        }
     }
 
     // MARK: - Table view data source
@@ -93,12 +93,12 @@ class TimelineTableViewController: UITableViewController {
         timeline = timelineData[indexPath.row]
 
         //adding values to labels
-        cell.usernameLabel.text = timeline.display_name
+        cell.usernameLabel.text = timeline.displayName
         cell.nicknameLabel.text = timeline.username
         cell.contentLabel.text = timeline.content
 
-        let date = timeline.created_at?.dateFormat().timeAgoDisplay()
-        cell.timeLabel.text = String(describing: date ?? "")
+//        let date = timeline.created_at?.dateFormat()?.timeAgoDisplay()
+        cell.timeLabel.text = timeline.createdAt
 
         if let avatarURL = timeline.avatar,
             let url = URL(string: avatarURL),
@@ -124,50 +124,10 @@ class TimelineTableViewController: UITableViewController {
         if let indexPath = tableView.indexPathForSelectedRow {
             let selectedStatus: TimelineData
             selectedStatus = timelineData[indexPath.row]
-            let statusVC = segue.destination as! StatusViewController
-            statusVC.statusID = selectedStatus.id!
+            let statusVC = segue.destination as? StatusViewController
+            if let id = selectedStatus.id {
+                statusVC?.statusID = id
+            }
         }
-    }
-}
-
-extension String {
-    /// It formating String similar to "2018-03-02T13:50:46.708Z" to Date format
-    ///
-    /// - Returns: Date
-    func dateFormat() -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
-
-        //        let dateObj = dateFormatter.date(from: timeline.created_at!)
-        return dateFormatter.date(from: self)!
-    }
-}
-
-extension Date {
-
-    /// It returne date how date ago
-    ///
-    /// - Returns: String
-    func timeAgoDisplay() -> String {
-        let secondsAgo = Int(Date().timeIntervalSince(self))
-        let minute = 60
-        let hour = 60 * minute
-        let day = 24 * hour
-        let week = 7 * day
-        if secondsAgo < minute {
-            return "\(secondsAgo) seconds ago"
-        }
-
-        else if secondsAgo < hour {
-            return "\(secondsAgo / minute) minutes ago"
-        }
-        else if secondsAgo < day {
-            return "\(secondsAgo / hour) hours ago"
-        }
-        else if secondsAgo < week {
-            return "\(secondsAgo / day) days ago"
-        }
-        return "\(secondsAgo / week) weeks ago"
     }
 }

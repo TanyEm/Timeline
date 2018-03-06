@@ -34,14 +34,15 @@ class StatusViewController: UIViewController {
         spinner.startAnimating()
         view.addSubview(spinner)
 
-        let apiURL = URL(string: "https://mastodon.social/api/v1/statuses/\(statusID)")
-        Alamofire.request(apiURL!).responseJSON { (response) in
-            let result = response.data
-            let json = JSON(result!)
-            print(json)
-            self.statusData = TimelineData().setFields(json)
-            self.setData()
-            self.spinner.stopAnimating()
+        if let apiURL = URL(string: "https://mastodon.social/api/v1/statuses/\(statusID)"){
+            Alamofire.request(apiURL).responseJSON { (response) in
+                let result = response.data
+                let json = JSON(result as Any)
+                self.statusData = TimelineData().setFields(json)
+                self.setData()
+                self.spinner.stopAnimating()
+            }
+
         }
     }
 
@@ -54,7 +55,7 @@ class StatusViewController: UIViewController {
     func setData() {
         contentLabel.text = self.statusData.content
         nicknameLabel.text = self.statusData.username
-        usernameLabel.text = self.statusData.display_name
+        usernameLabel.text = self.statusData.displayName
 
         if let avatarURL = statusData.avatar,
             let url = URL(string: avatarURL),
@@ -68,7 +69,7 @@ class StatusViewController: UIViewController {
             }
 
         if statusData.imageType == "image" || statusData.imageType == "gifv"{
-            if let previewURL = statusData.preview_url,
+            if let previewURL = statusData.previewUrl,
                 let url = URL(string: previewURL),
                 let data = try? Data(contentsOf: url),
                 let image = UIImage(data: data) {

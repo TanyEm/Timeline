@@ -16,6 +16,8 @@
 		732DFEB3204542F300A5B600 /* TimelineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732DFEB2204542F300A5B600 /* TimelineTableViewController.swift */; };
 		732DFEB52045437700A5B600 /* UserStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732DFEB42045437700A5B600 /* UserStatusTableViewCell.swift */; };
 		732DFEB92045459B00A5B600 /* TimelineData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732DFEB82045459B00A5B600 /* TimelineData.swift */; };
+		739A031E204D90F000079A8C /* Data+Formater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739A031D204D90F000079A8C /* Data+Formater.swift */; };
+		739A0320204D91CC00079A8C /* String+DataFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739A031F204D91CC00079A8C /* String+DataFormat.swift */; };
 		8C40850F30E339B19FDA9161 /* Pods_Timeline.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF278702CA0A1A5A6E15B30D /* Pods_Timeline.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +47,8 @@
 		732DFEB2204542F300A5B600 /* TimelineTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTableViewController.swift; sourceTree = "<group>"; };
 		732DFEB42045437700A5B600 /* UserStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatusTableViewCell.swift; sourceTree = "<group>"; };
 		732DFEB82045459B00A5B600 /* TimelineData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineData.swift; sourceTree = "<group>"; };
+		739A031D204D90F000079A8C /* Data+Formater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Formater.swift"; sourceTree = "<group>"; };
+		739A031F204D91CC00079A8C /* String+DataFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+DataFormat.swift"; sourceTree = "<group>"; };
 		AF278702CA0A1A5A6E15B30D /* Pods_Timeline.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Timeline.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -108,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				732DFE9220447DE800A5B600 /* AppDelegate.swift */,
+				739A0321204D95C000079A8C /* Extensions */,
 				732DFEBA204545AB00A5B600 /* Data */,
 				732DFEBB204545D700A5B600 /* Controllers */,
 				732DFE9620447DE800A5B600 /* Main.storyboard */,
@@ -143,6 +148,15 @@
 				732DFEB42045437700A5B600 /* UserStatusTableViewCell.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		739A0321204D95C000079A8C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				739A031D204D90F000079A8C /* Data+Formater.swift */,
+				739A031F204D91CC00079A8C /* String+DataFormat.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,8 +322,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				732DFEB92045459B00A5B600 /* TimelineData.swift in Sources */,
+				739A031E204D90F000079A8C /* Data+Formater.swift in Sources */,
 				732DFE9520447DE800A5B600 /* StatusViewController.swift in Sources */,
 				732DFEB3204542F300A5B600 /* TimelineTableViewController.swift in Sources */,
+				739A0320204D91CC00079A8C /* String+DataFormat.swift in Sources */,
 				732DFEB52045437700A5B600 /* UserStatusTableViewCell.swift in Sources */,
 				732DFE9320447DE800A5B600 /* AppDelegate.swift in Sources */,
 			);
