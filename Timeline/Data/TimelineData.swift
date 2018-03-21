@@ -20,7 +20,14 @@ class TimelineData {
     var previewUrl: String?
     var imageType: String?
 
-    func setFields(_ item: JSON) -> TimelineData {
+//    init(from item: JSON) throws {
+//
+//        createdAt = try item.string("created_at")
+//        content = try item.string("content")
+//
+//    }
+
+     func setFields(_ item: JSON) -> TimelineData {
         self.displayName = item["account"]["display_name"].string
 
         if let usernameString = item["account"]["username"].string {
@@ -32,7 +39,7 @@ class TimelineData {
                                                       with: "",
                                                       options: String.CompareOptions.regularExpression,
                                                       range: nil)
-        
+
         self.createdAt = item["created_at"].string?.dateFormat()?.timeAgoDisplay()
         self.avatar = item["account"]["avatar_static"].string
         self.id = item["id"].string

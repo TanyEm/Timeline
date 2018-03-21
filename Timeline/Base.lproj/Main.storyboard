@@ -26,20 +26,20 @@
                                     <constraint firstAttribute="width" constant="70" id="RpB-aY-xOw"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Saz-OB-WDS">
-                                <rect key="frame" x="86" y="124" width="281" height="0.0"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Saz-OB-WDS">
+                                <rect key="frame" x="86" y="124" width="281" height="20.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NK1-4v-9XJ">
-                                <rect key="frame" x="86" y="132" width="281" height="0.0"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NK1-4v-9XJ">
+                                <rect key="frame" x="86" y="152.5" width="281" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PT0-g7-Xll">
-                                <rect key="frame" x="8" y="202" width="359" height="0.0"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PT0-g7-Xll">
+                                <rect key="frame" x="8" y="202" width="359" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -66,7 +66,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="avatarImg" destination="E4p-fq-5EU" id="cLI-on-Sh4"/>
+                        <outlet property="avatarImage" destination="E4p-fq-5EU" id="qXK-GU-RMi"/>
                         <outlet property="contentLabel" destination="PT0-g7-Xll" id="h1L-P4-XO7"/>
                         <outlet property="nicknameLabel" destination="NK1-4v-9XJ" id="0aZ-Uw-l4q"/>
                         <outlet property="usernameLabel" destination="Saz-OB-WDS" id="A1S-aS-FAU"/>
@@ -144,7 +144,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="avatarImg" destination="aAP-K0-ifG" id="n1n-lR-saJ"/>
+                                    <outlet property="avatarImage" destination="aAP-K0-ifG" id="jKq-dP-b4A"/>
                                     <outlet property="contentLabel" destination="Rew-0y-H6n" id="Bx2-Rz-nL8"/>
                                     <outlet property="nicknameLabel" destination="Ns9-eQ-ilc" id="Meh-8k-vcy"/>
                                     <outlet property="timeLabel" destination="AQa-Du-qtL" id="IKF-98-DW1"/>
@@ -160,6 +160,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Timeline" id="Pf9-be-3vo"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="qfP-tK-HaF">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <attributedString key="attributedTitle">
                             <fragment content="Fetching new data ...">

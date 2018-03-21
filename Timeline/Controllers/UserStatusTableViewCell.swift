@@ -12,13 +12,17 @@ class UserStatusTableViewCell: UITableViewCell {
 
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var nicknameLabel: UILabel!
-    @IBOutlet weak var avatarImg: UIImageView!
+    @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
+        avatarImage.layer.cornerRadius = avatarImage.frame.size.width * 0.5
+        avatarImage.layer.borderWidth = 1.0
+        avatarImage.layer.borderColor = UIColor.white.cgColor
+        avatarImage.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -27,4 +31,9 @@ class UserStatusTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+
+    }
 }

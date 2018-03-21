@@ -16,23 +16,17 @@ class StatusViewController: UIViewController {
     var statusID = ""
     
     var statusData = TimelineData()
-    let spinner = UIActivityIndicatorView()
+    let activityIndicator = UIActivityIndicatorView()
 
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var nicknameLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
-    @IBOutlet weak var avatarImg: UIImageView!
+    @IBOutlet weak var avatarImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print(statusID)
-
-        spinner.hidesWhenStopped = true
-        spinner.center = view.center
-        spinner.activityIndicatorViewStyle = .gray
-        spinner.startAnimating()
-        view.addSubview(spinner)
 
         if let apiURL = URL(string: "https://mastodon.social/api/v1/statuses/\(statusID)"){
             Alamofire.request(apiURL).responseJSON { (response) in
@@ -40,15 +34,26 @@ class StatusViewController: UIViewController {
                 let json = JSON(result as Any)
                 self.statusData = TimelineData().setFields(json)
                 self.setData()
-                self.spinner.stopAnimating()
+                self.activityIndicator.stopAnimating()
             }
 
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.center = view.center
+        activityIndicator.activityIndicatorViewStyle = .gray
+        activityIndicator.startAnimating()
+        view.addSubview(activityIndicator)
+
+
+        avatarImage.layer.cornerRadius = avatarImage.frame.size.width * 0.5
+        avatarImage.layer.borderWidth = 1.0
+        avatarImage.layer.borderColor = UIColor.white.cgColor
+        avatarImage.clipsToBounds = true
     }
 
     // Adding data in view
@@ -61,11 +66,7 @@ class StatusViewController: UIViewController {
             let url = URL(string: avatarURL),
             let data = try? Data(contentsOf: url),
             let image = UIImage(data: data){
-                avatarImg.image = image
-                avatarImg.layer.cornerRadius = 70 / 2
-                avatarImg.layer.borderWidth = 1.0
-                avatarImg.layer.borderColor = UIColor.white.cgColor
-                avatarImg.clipsToBounds = true
+                avatarImage.image = image
             }
 
         if statusData.imageType == "image" || statusData.imageType == "gifv"{
@@ -74,6 +75,7 @@ class StatusViewController: UIViewController {
                 let data = try? Data(contentsOf: url),
                 let image = UIImage(data: data) {
 
+                // will creat it in storiboard
                 let imageView = UIImageView(image: image)
                 view.addSubview(imageView)
                 imageView.translatesAutoresizingMaskIntoConstraints = false

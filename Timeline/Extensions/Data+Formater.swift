@@ -14,11 +14,19 @@ extension Date {
     ///
     /// - Returns: String
     func timeAgoDisplay() -> String {
-        let secondsAgo = Int(Date().timeIntervalSince(self))
-        let minute = 60
+        let secondsAgo = Int64(Date().timeIntervalSince(self))
+        let minute: Int64 = 60
         let hour = 60 * minute
         let day = 24 * hour
         let week = 7 * day
+        switch secondsAgo {
+        case 0 ..< minute:
+            return ""
+        case minute ..< hour:
+            return ""
+        default:
+            return ""
+        }
         if secondsAgo < minute {
             return "\(secondsAgo) seconds ago"
         }
