@@ -27,17 +27,7 @@ class StatusViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print(statusID)
-
-        if let apiURL = URL(string: "https://mastodon.social/api/v1/statuses/\(statusID)"){
-            Alamofire.request(apiURL).responseJSON { (response) in
-                let result = response.data
-                let json = JSON(result as Any)
-                self.statusData = TimelineData().setFields(json)
-                self.setData()
-                self.activityIndicator.stopAnimating()
-            }
-
-        }
+        obtainStatus()
     }
 
     override func viewDidLayoutSubviews() {
@@ -46,7 +36,6 @@ class StatusViewController: UIViewController {
         activityIndicator.hidesWhenStopped = true
         activityIndicator.center = view.center
         activityIndicator.activityIndicatorViewStyle = .gray
-        activityIndicator.startAnimating()
         view.addSubview(activityIndicator)
 
 
@@ -56,33 +45,65 @@ class StatusViewController: UIViewController {
         avatarImage.clipsToBounds = true
     }
 
+    func obtainStatus() {
+        guard let apiURL = URL(string: "https://mastodon.social/api/v1/statuses/\(statusID)") else {
+            return
+        }
+
+        activityIndicator.startAnimating()
+        Alamofire.request(apiURL).responseJSON { [weak self] (response) in
+            let result = response.data
+            let json = JSON(result as Any)
+            self?.statusData = TimelineData().setFields(json)
+            DispatchQueue.main.async { [weak self] in
+                self?.setData()
+                self?.activityIndicator.stopAnimating()
+            }
+        }
+    }
+
     // Adding data in view
     func setData() {
         contentLabel.text = self.statusData.content
         nicknameLabel.text = self.statusData.username
         usernameLabel.text = self.statusData.displayName
 
-        if let avatarURL = statusData.avatar,
-            let url = URL(string: avatarURL),
-            let data = try? Data(contentsOf: url),
-            let image = UIImage(data: data){
-                avatarImage.image = image
+        guard let avatarURL = statusData.avatar else {
+            return
+        }
+        DispatchQueue.global(qos: .background).async {
+            guard
+                let url = URL(string: avatarURL),
+                let data = try? Data(contentsOf: url),
+                let image = UIImage(data: data) else {
+                    return
             }
+            self.avatarImage.image = image
+           // self.activityIndicator.stopAnimating()
+        }
 
         if statusData.imageType == "image" || statusData.imageType == "gifv"{
-            if let previewURL = statusData.previewUrl,
-                let url = URL(string: previewURL),
-                let data = try? Data(contentsOf: url),
-                let image = UIImage(data: data) {
+            guard let previewURL = statusData.previewUrl else {
+                return
+            }
 
-                // will creat it in storiboard
-                let imageView = UIImageView(image: image)
-                view.addSubview(imageView)
-                imageView.translatesAutoresizingMaskIntoConstraints = false
-                imageView.leadingAnchor.constraint(equalTo: contentLabel.leadingAnchor).isActive = true
-                imageView.rightAnchor.constraint(equalTo: contentLabel.rightAnchor).isActive = true
-                imageView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 8).isActive = true
-                imageView.contentMode = UIViewContentMode.center
+            DispatchQueue.global(qos: .background).async {
+                guard
+                    let url = URL(string: previewURL),
+                    let data = try? Data(contentsOf: url),
+                    let image = UIImage(data: data)
+                    else {
+                    return
+                }
+
+            let imageView = UIImageView(image: image)
+            self.view.addSubview(imageView)
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+                imageView.leadingAnchor.constraint(equalTo: self.contentLabel.leadingAnchor).isActive = true
+                imageView.rightAnchor.constraint(equalTo: self.contentLabel.rightAnchor).isActive = true
+                imageView.topAnchor.constraint(equalTo: self.contentLabel.bottomAnchor,
+                                               constant: 8).isActive = true
+            imageView.contentMode = UIViewContentMode.center
             }
         }
     }

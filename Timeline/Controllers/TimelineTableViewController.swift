@@ -57,33 +57,21 @@ class TimelineTableViewController: UITableViewController {
     }
 
     func obtainTimeline() {
-//        guard let apiURL = URL(string: "https://mastodon.social/api/v1/timelines/public") else {
-//            return
-//        }
-//
-//        activityIndicator.startAnimating()
-//        Alamofire.request(apiURL).responseJSON { [weak self] (response) in
-//            let result = response.data
-//            let json = JSON(result as Any)
-//            self?.timelineData = try json.arrayValue.map { TimelineData(from: $0) }
-//            DispatchQueue.main.async { [weak self] in
-//                self?.activityIndicator.stopAnimating()
-//                self?.tableView.reloadData()
-//            }
-//        }
+        guard let apiURL = URL(string: "https://mastodon.social/api/v1/timelines/public") else {
+            return
+        }
 
-        if let apiURL = URL(string: "https://mastodon.social/api/v1/timelines/public") {
-            Alamofire.request(apiURL).responseJSON { (response) in
-                let result = response.data
-                let json = JSON(result as Any)
-                self.timelineData = []
-                for item in json.arrayValue {
-                    self.timelineData.append(TimelineData().setFields(item))
-                }
-                if self.activityIndicator.isAnimating {
-                    self.activityIndicator.stopAnimating()
-                }
-                self.tableView.reloadData()
+        activityIndicator.startAnimating()
+        Alamofire.request(apiURL).responseJSON { [weak self] (response) in
+            let result = response.data
+            let json = JSON(result as Any)
+            self?.timelineData = []
+            for item in json.arrayValue {
+                self?.timelineData.append(TimelineData().setFields(item))
+            }
+            DispatchQueue.main.async { [weak self] in
+                self?.activityIndicator.stopAnimating()
+                self?.tableView.reloadData()
             }
         }
     }

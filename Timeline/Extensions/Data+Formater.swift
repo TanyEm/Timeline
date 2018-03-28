@@ -10,7 +10,7 @@ import Foundation
 
 extension Date {
 
-    /// It returne date how date ago
+    /// It return date how date ago
     ///
     /// - Returns: String
     func timeAgoDisplay() -> String {
@@ -19,14 +19,7 @@ extension Date {
         let hour = 60 * minute
         let day = 24 * hour
         let week = 7 * day
-        switch secondsAgo {
-        case 0 ..< minute:
-            return ""
-        case minute ..< hour:
-            return ""
-        default:
-            return ""
-        }
+        
         if secondsAgo < minute {
             return "\(secondsAgo) seconds ago"
         }
